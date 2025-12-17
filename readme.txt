@@ -77,39 +77,18 @@ FissionBypass Pro takes G-code from CAM software (Fusion 360, SolidWorks CAM, et
 
 ## 🚀 Installation
 
-### Option 1: Standalone EXE (Recommended)
-1. Download `FissionBypassPro.exe` from Releases
+### Download & Run
+1. Download `FissionBypassPro.exe` from the `dist/` folder
 2. Run the application - no installation needed
 3. Windows may show a SmartScreen warning - click "More info" → "Run anyway"
 
-### Option 2: Run from Source
-```bash
-# Clone repository
-git clone https://github.com/DeadlySIn777/Fissionbypass
-cd Fissionbypass
-
-# Install dependencies
-pip install pywebview psutil
-
-# Run application
-python desktop_app.py
-```
-
 ---
 
-## 📁 Project Structure
+## 📁 Download
 
 ```
-Fissionbypass/
-├── desktop_app.py        # Main application (1600+ lines)
-├── ai/
-│   ├── toolpath_optimizer.py  # Cutting parameter engine (1000+ lines)
-│   └── llm_integration.py     # Ollama AI integration (1100+ lines)
-├── gcode/
-│   └── optimizer.py      # G-code processing (850+ lines)
-├── dist/
-│   └── FissionBypassPro.exe   # Standalone executable (23 MB)
-└── readme.txt
+dist/
+└── FissionBypassPro.exe   # Standalone executable (23 MB)
 ```
 
 ---
@@ -144,7 +123,6 @@ The optimizer detects patterns like:
 - **OS:** Windows 10/11 (64-bit)
 - **RAM:** 4 GB minimum, 8 GB recommended
 - **Storage:** 50 MB for application, 2-10 GB for AI models (optional)
-- **Python:** 3.8+ (if running from source)
 
 ---
 
@@ -167,7 +145,7 @@ The default parameters are intentionally conservative. Tool breakage, machine da
 **Proprietary Software**  
 Copyright © 2025 Luis Angel Garcia. All Rights Reserved.
 
-This software is provided for personal and commercial use. Redistribution of source code is prohibited without explicit written permission.
+This software is provided for personal and commercial use. Source code is not distributed.
 
 ---
 
