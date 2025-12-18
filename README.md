@@ -44,14 +44,11 @@ Transform your CAM-generated G-code into **optimized, production-ready** toolpat
 
 ### 🔒 Why No Source Code?
 
-This is **4,600+ lines of proprietary code** developed over significant time and effort. I'm an independent developer, not a corporation.
+**I don't want it stolen.** That's it. 4,600+ lines of my work.
 
-- Publishing source = large companies copy it, rebrand it, and monetize it
-- Open source is great, but not when you're a solo dev competing against corporations with lawyers
-- The app talks **only to localhost:11434** (your local Ollama server) - zero internet connectivity
-- If you don't trust closed-source software, that's fine - don't use Windows, Discord, or Fusion 360 either
-
-**The EXE is clean.** VirusTotal confirms it. The 6 flags are ML false positives from PyInstaller packaging.
+- The app only connects to `localhost:11434` (your local Ollama server) - no internet
+- VirusTotal: 65/71 clean, all major AV vendors pass it
+- Don't trust it? Don't run it.
 
 ---
 
