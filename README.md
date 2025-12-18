@@ -42,7 +42,16 @@ Transform your CAM-generated G-code into **optimized, production-ready** toolpat
 
 > **⚠️ False Positive Notice:** 6 ML-based scanners flag this as "suspicious" - this is a [known PyInstaller issue](https://github.com/pyinstaller/pyinstaller/issues/6754). All major antivirus vendors (Microsoft, Kaspersky, ESET, Bitdefender, Avast, Malwarebytes, Sophos, etc.) mark it as clean. PyInstaller EXEs trigger AI heuristics because they unpack Python at runtime - same technique used by some malware, but also by thousands of legitimate apps.
 
-> **Why no source?** This is proprietary software. The EXE is built from Python using PyInstaller - that's why it's 23MB (includes Python runtime). If you still don't trust it, don't run it.
+### 🔒 Why No Source Code?
+
+This is **4,600+ lines of proprietary code** developed over significant time and effort. I'm an independent developer, not a corporation.
+
+- Publishing source = large companies copy it, rebrand it, and monetize it
+- Open source is great, but not when you're a solo dev competing against corporations with lawyers
+- The app talks **only to localhost:11434** (your local Ollama server) - zero internet connectivity
+- If you don't trust closed-source software, that's fine - don't use Windows, Discord, or Fusion 360 either
+
+**The EXE is clean.** VirusTotal confirms it. The 6 flags are ML false positives from PyInstaller packaging.
 
 ---
 
