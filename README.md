@@ -29,6 +29,17 @@ Transform your CAM-generated G-code into **optimized, production-ready** toolpat
 
 > Just download and run. No installation required.
 
+### 🛡️ Security Verification
+
+| Check | Status |
+|-------|--------|
+| [VirusTotal Scan](https://www.virustotal.com/gui/file/417AC667114AEC8AC834D7296F6D120C8142296ED531A62AEEC223BE8A1BD3B8) | ✅ Clean |
+| SHA256 | `417AC667114AEC8AC834D7296F6D120C8142296ED531A62AEEC223BE8A1BD3B8` |
+| Built with | PyInstaller (Python → EXE) |
+| Dependencies | pywebview, psutil (standard libs) |
+
+> **Why no source?** This is proprietary software. The EXE is built from Python using PyInstaller - that's why it's 23MB (includes Python runtime). If you don't trust it, don't run it. Simple.
+
 ---
 
 ## 🎯 Features at a Glance
