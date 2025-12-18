@@ -33,12 +33,16 @@ Transform your CAM-generated G-code into **optimized, production-ready** toolpat
 
 | Check | Status |
 |-------|--------|
-| [VirusTotal Scan](https://www.virustotal.com/gui/file/417AC667114AEC8AC834D7296F6D120C8142296ED531A62AEEC223BE8A1BD3B8) | ✅ Clean |
+| [VirusTotal Scan](https://www.virustotal.com/gui/file/417AC667114AEC8AC834D7296F6D120C8142296ED531A62AEEC223BE8A1BD3B8) | ✅ 66/72 Clean |
 | SHA256 | `417AC667114AEC8AC834D7296F6D120C8142296ED531A62AEEC223BE8A1BD3B8` |
-| Built with | PyInstaller (Python → EXE) |
-| Dependencies | pywebview, psutil (standard libs) |
+| Microsoft Defender | ✅ Undetected |
+| Kaspersky | ✅ Undetected |
+| ESET | ✅ Undetected |
+| Malwarebytes | ✅ Undetected |
 
-> **Why no source?** This is proprietary software. The EXE is built from Python using PyInstaller - that's why it's 23MB (includes Python runtime). If you don't trust it, don't run it. Simple.
+> **⚠️ False Positive Notice:** 6 ML-based scanners flag this as "suspicious" - this is a [known PyInstaller issue](https://github.com/pyinstaller/pyinstaller/issues/6754). All major antivirus vendors (Microsoft, Kaspersky, ESET, Bitdefender, Avast, Malwarebytes, Sophos, etc.) mark it as clean. PyInstaller EXEs trigger AI heuristics because they unpack Python at runtime - same technique used by some malware, but also by thousands of legitimate apps.
+
+> **Why no source?** This is proprietary software. The EXE is built from Python using PyInstaller - that's why it's 23MB (includes Python runtime). If you still don't trust it, don't run it.
 
 ---
 
