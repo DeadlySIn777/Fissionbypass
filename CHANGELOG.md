@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [2.0.0] - 2025-XX-XX
+## [2.0.0] - 2025-12-17
 
 ### Added
 - **14 CNC Controller Profiles**: GRBL, LinuxCNC, FANUC, HAAS, SIEMENS, MAZAK, OKUMA, DMG MORI, Mach3, Mach4, TORMACH, SHOPBOT, CENTROID, HURCO
@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.0] - 2025-XX-XX
+## [1.0.0] - 2025-12-01
 
 ### Added
 - Initial release
@@ -42,8 +42,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 | Version | Date | Highlights |
 |---------|------|------------|
-| 2.0.0 | 2025 | 14 controllers, 15 materials, AI integration |
-| 1.0.0 | 2025 | Initial release |
+| 2.0.0 | 2025-12-17 | 14 controllers, 15 materials, AI integration |
+| 1.0.0 | 2025-12-01 | Initial release |
 
 ---
 

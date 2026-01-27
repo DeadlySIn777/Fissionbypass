@@ -264,6 +264,8 @@ Always verify parameters for your specific machine. Start conservative and incre
 
 ## 📋 Additional Documentation
 
+- [docs/USAGE.md](docs/USAGE.md) - Detailed usage guide and troubleshooting
+- [examples/](examples/) - Before/after G-code samples
 - [CHANGELOG.md](CHANGELOG.md) - Version history and planned features
 - [SECURITY.md](SECURITY.md) - Security policy and vulnerability reporting
 - [LICENSE](LICENSE) - Proprietary license terms
