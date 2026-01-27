@@ -1,0 +1,28 @@
+{
+  "name": "fusionbypass",
+  "version": "1.0.0",
+  "description": "<p align=\"center\">\r   <img src=\"assets/logo.svg\" alt=\"FissionBypass Pro Logo\" width=\"600\"/>\r </p>",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeadlySIn777/Fissionbypass.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/DeadlySIn777/Fissionbypass/issues"
+  },
+  "homepage": "https://github.com/DeadlySIn777/Fissionbypass#readme",
+  "devDependencies": {
+    "puppeteer": "^24.36.0"
+  }
+}

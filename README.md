@@ -27,6 +27,14 @@
 
 ---
 
+## 🖼️ Preview
+
+<p align="center">
+  <img src="assets/screenshot_main.png" alt="FissionBypass Pro Interface" width="800"/>
+</p>
+
+---
+
 ## ⚡ Quick Start
 
 1. **Download** → [FissionBypassPro.exe](dist/FissionBypassPro.exe) (23 MB)
