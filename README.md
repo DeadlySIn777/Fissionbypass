@@ -199,6 +199,67 @@ All major antivirus vendors with signature-based detection confirm it's clean.
 
 ---
 
+## 🌐 Google Drive Auto-Watch (NEW!)
+
+**Zero-config! Just double-click INSTALL.bat and you're done!**
+
+### ⚡ One-Click Setup
+
+1. **Double-click** `INSTALL.bat`
+2. That's it. Seriously.
+
+The installer will:
+- ✅ Auto-detect your Google Drive location
+- ✅ Create a `CNC Files` folder if needed
+- ✅ Install auto-startup (runs on Windows boot)
+- ✅ Start watching immediately
+
+### 🧠 Smart Features
+
+**Auto-Detection:**
+- Finds Google Drive automatically (G:\My Drive, etc.)
+- Detects material from G-code comments
+- Works out of the box!
+
+**Smart Renaming:**
+```
+You drop:    unnamed123(2).nc
+It becomes:  1001_BRACKET_Aluminum_Pocket_READY.nc
+```
+
+Reads your G-code and extracts:
+- Part numbers & names
+- Material type
+- Operation type
+- Tool info
+
+**Auto-Startup:**
+- Runs silently when Windows boots
+- No console window
+- Always watching your folder!
+
+### 📁 Workflow
+
+```
+Design PC:  Export .nc to Google Drive
+            ↓
+Watcher:    Instantly creates _READY.nc with smart name
+            ↓
+CNC PC:     Open optimized file from same Drive folder!
+```
+
+### 🔧 Commands
+
+```bash
+npm run watch              # Start watcher manually
+npm run install-startup    # Add to Windows startup
+npm run uninstall-startup  # Remove from startup
+```
+
+📖 **Full Guide**: [docs/GOOGLE_DRIVE_SETUP.md](docs/GOOGLE_DRIVE_SETUP.md)
+
+---
+
 ## ❓ FAQ
 
 <details>

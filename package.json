@@ -1,14 +1,32 @@
 {
   "name": "fusionbypass",
-  "version": "1.0.0",
-  "description": "<p align=\"center\">\r   <img src=\"assets/logo.svg\" alt=\"FissionBypass Pro Logo\" width=\"600\"/>\r </p>",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "FissionBypass Pro - CNC G-Code Optimizer with Google Drive Auto-Watch",
+  "main": "src/optimizer.js",
+  "bin": {
+    "fusionbypass": "src/drive-watcher.js"
+  },
+  "pkg": {
+    "scripts": ["src/**/*.js"],
+    "targets": ["node18-win-x64"],
+    "outputPath": "dist"
+  },
   "directories": {
     "doc": "docs",
     "example": "examples"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "node src/drive-watcher.js",
+    "start": "node src/drive-watcher.js",
+    "setup": "node scripts/setup-drive-watcher.js",
+    "optimize": "node src/cli.js",
+    "install-startup": "node scripts/install-startup.js",
+    "uninstall-startup": "node scripts/install-startup.js uninstall",
+    "build": "pkg . --output dist/FissionBypassPro.exe --targets node18-win-x64",
+    "install-exe": "node scripts/install-exe-startup.js",
+    "uninstall-exe": "node scripts/install-exe-startup.js uninstall",
+    "update": "node src/updater.js"
   },
   "repository": {
     "type": "git",

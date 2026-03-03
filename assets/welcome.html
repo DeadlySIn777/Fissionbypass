@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FissionBypass Pro - Installation Complete</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e8e8e8;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .logo {
+            font-size: 72px;
+            margin-bottom: 10px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2em;
+            color: #888;
+        }
+        
+        .success-banner {
+            background: linear-gradient(90deg, #00c853, #00e676);
+            color: #000;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0, 200, 83, 0.3);
+        }
+        
+        .success-banner span {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .card h2 {
+            color: #00d9ff;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2 span {
+            font-size: 1.3em;
+        }
+        
+        .feature-list {
+            list-style: none;
+        }
+        
+        .feature-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-list li span.icon {
+            font-size: 1.3em;
+            min-width: 30px;
+        }
+        
+        .feature-list li strong {
+            color: #00ff88;
+        }
+        
+        .how-it-works {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .step {
+            background: rgba(0, 217, 255, 0.1);
+            border: 1px solid rgba(0, 217, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d9ff, #0088ff);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin: 0 auto 15px;
+            color: #000;
+        }
+        
+        .step h3 {
+            color: #00d9ff;
+            margin-bottom: 10px;
+        }
+        
+        .step p {
+            font-size: 0.9em;
+            color: #aaa;
+        }
+        
+        .safety-box {
+            background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.1));
+            border: 2px solid #ffc107;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .safety-box h2 {
+            color: #ffc107 !important;
+        }
+        
+        .paths-box {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            padding: 15px 20px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.85em;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .paths-box div {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .paths-box div:last-child {
+            border-bottom: none;
+        }
+        
+        .paths-box .label {
+            color: #888;
+            min-width: 120px;
+            display: inline-block;
+        }
+        
+        .paths-box .path {
+            color: #00ff88;
+        }
+        
+        .button-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #00d9ff, #00ff88);
+            color: #000;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 217, 255, 0.4);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #00d9ff;
+            color: #00d9ff;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(0, 217, 255, 0.1);
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+        }
+        
+        .footer a {
+            color: #00d9ff;
+            text-decoration: none;
+        }
+        
+        .not-a-virus {
+            background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(56, 142, 60, 0.1));
+            border: 2px solid #4caf50;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 30px 0;
+        }
+        
+        .not-a-virus h2 {
+            color: #4caf50 !important;
+        }
+        
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', monospace;
+            color: #00ff88;
+        }
+        
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8em;
+            }
+            .container {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">⚡</div>
+            <h1>FissionBypass Pro</h1>
+            <p class="subtitle">CNC G-Code Optimizer for Fusion 360 Personal Use</p>
+        </div>
+        
+        <div class="success-banner">
+            <span>✅</span> Installation Complete!
+        </div>
+        
+        <div class="card">
+            <h2><span>🎯</span> What Does FissionBypass Do?</h2>
+            <ul class="feature-list">
+                <li>
+                    <span class="icon">🚀</span>
+                    <div><strong>Restores Rapid Moves:</strong> Fusion 360 Personal Use slows down G0 rapid positioning moves to crawling speeds (F2-F5). We restore them to full G0 rapids for positioning moves only.</div>
+                </li>
+                <li>
+                    <span class="icon">🔒</span>
+                    <div><strong>100% Safe:</strong> We NEVER touch your cutting feeds, drilling feeds, or any moves that go into the material. Only positioning moves in the air are optimized.</div>
+                </li>
+                <li>
+                    <span class="icon">⚙️</span>
+                    <div><strong>RPM Limiting:</strong> Caps spindle speed to your machine's maximum (default 8000 RPM) to prevent damage.</div>
+                </li>
+                <li>
+                    <span class="icon">🗑️</span>
+                    <div><strong>Auto-Cleanup:</strong> Deletes useless Fusion parent files and renames files with clean, CNC-friendly names.</div>
+                </li>
+                <li>
+                    <span class="icon">👁️</span>
+                    <div><strong>Auto-Watch:</strong> Monitors your Google Drive folder and automatically optimizes any new .nc files you export from Fusion 360.</div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2><span>⚙️</span> How It Works</h2>
+            <div class="how-it-works">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Export</h3>
+                    <p>Post-process your toolpath in Fusion 360 to your Google Drive folder</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Auto-Detect</h3>
+                    <p>FissionBypass detects the new file within seconds</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Optimize</h3>
+                    <p>Rapids are restored, RPM is capped, file is renamed</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Ready!</h3>
+                    <p>Your optimized *_READY.nc file is ready to run</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="not-a-virus">
+            <h2><span>🛡️</span> This Is NOT a Virus!</h2>
+            <ul class="feature-list">
+                <li>
+                    <span class="icon">✅</span>
+                    <div><strong>Open Source:</strong> The complete source code is available on GitHub. You can review every line of code.</div>
+                </li>
+                <li>
+                    <span class="icon">✅</span>
+                    <div><strong>No Network Access:</strong> FissionBypass only reads/writes .nc files in your specified folder. It never sends data anywhere.</div>
+                </li>
+                <li>
+                    <span class="icon">✅</span>
+                    <div><strong>Runs on Startup:</strong> Yes, it adds itself to Windows Startup - this is so it automatically watches your folder when you turn on your PC. You can disable this anytime.</div>
+                </li>
+                <li>
+                    <span class="icon">✅</span>
+                    <div><strong>Hidden Window:</strong> It runs minimized to stay out of your way. It's not hiding - you can see it in Task Manager as <code>FissionBypass.exe</code></div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <h2><span>📁</span> Installation Locations</h2>
+            <div class="paths-box">
+                <div><span class="label">Program:</span> <span class="path">%LOCALAPPDATA%\FissionBypass\FissionBypass.exe</span></div>
+                <div><span class="label">Config:</span> <span class="path">%LOCALAPPDATA%\FissionBypass\config.json</span></div>
+                <div><span class="label">Startup:</span> <span class="path">%APPDATA%\...\Startup\FissionBypass.vbs</span></div>
+                <div><span class="label">Uninstall:</span> <span class="path">%LOCALAPPDATA%\FissionBypass\uninstall.bat</span></div>
+            </div>
+            <p style="color: #888; font-size: 0.9em; margin-top: 15px;">
+                To uninstall, simply run <code>uninstall.bat</code> or delete the FissionBypass folder and remove the startup entry.
+            </p>
+        </div>
+        
+        <div class="safety-box">
+            <h2><span>⚠️</span> Safety Information</h2>
+            <ul class="feature-list">
+                <li>
+                    <span class="icon">🔧</span>
+                    <div><strong>Always verify G-code:</strong> Preview toolpaths in your CNC software before running. We optimize safely, but double-check is always good practice.</div>
+                </li>
+                <li>
+                    <span class="icon">📏</span>
+                    <div><strong>Check your RPM:</strong> Default max RPM is 8000. Edit <code>config.json</code> if your spindle has a different maximum.</div>
+                </li>
+                <li>
+                    <span class="icon">📂</span>
+                    <div><strong>Watch folder:</strong> Make sure the configured folder matches where you export your Fusion 360 files.</div>
+                </li>
+            </ul>
+        </div>
+        
+        <div class="button-row">
+            <a href="https://github.com/DeadlySIn777/Fissionbypass" target="_blank" class="btn btn-primary">
+                ⭐ View on GitHub
+            </a>
+            <a href="https://github.com/DeadlySIn777/Fissionbypass/issues" target="_blank" class="btn btn-secondary">
+                🐛 Report Issues
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p>FissionBypass Pro v2.2 • Made for the CNC community</p>
+            <p style="margin-top: 10px;">
+                <a href="https://github.com/DeadlySIn777/Fissionbypass">GitHub</a> • 
+                Open Source • MIT License
+            </p>
+        </div>
+    </div>
+</body>
+</html>
