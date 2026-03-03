@@ -2,7 +2,7 @@
  * FissionBypass Pro - Google Drive Auto Watcher
  * 
  * FULLY AUTOMATIC - Just run it and drop files!
- * - Auto-detects Google Drive location
+ * - Auto-detects Google Drive location (ANY location!)
  * - Smart file renaming based on G-code content
  * - Works out of the box, zero config needed
  */
@@ -10,96 +10,216 @@
 const fs = require('fs');
 const path = require('path');
 const os = require('os');
+const { execSync } = require('child_process');
 const GCodeOptimizer = require('./optimizer');
 
-// ============== SMART AUTO-DETECTION ==============
+// ============== COMPREHENSIVE AUTO-DETECTION ==============
+// Finds Google Drive, OneDrive, Dropbox, iCloud - ANYWHERE!
 
 function findGoogleDrive() {
-  // Method 1: Check Google Drive Stream (virtual drive letters G-Z)
-  for (const letter of 'GHIJKLMNOPQRSTUVWXYZ'.split('')) {
-    const drivePath = `${letter}:\\My Drive`;
-    if (fs.existsSync(drivePath)) {
-      return drivePath;
+  console.log('🔍 Searching for cloud drive folders...');
+  
+  // ===== METHOD 1: Check ALL drive letters for Google Drive Stream =====
+  // Google Drive for Desktop mounts as a virtual drive (commonly G:, but can be ANY letter)
+  for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')) {
+    const drivePaths = [
+      `${letter}:\\My Drive`,
+      `${letter}:\\Google Drive`,
+      `${letter}:\\My Drive\\CNC`,
+      `${letter}:\\My Drive\\CNC Files`,
+    ];
+    for (const drivePath of drivePaths) {
+      if (fs.existsSync(drivePath)) {
+        console.log(`   ✓ Found Google Drive at: ${drivePath}`);
+        return drivePath;
+      }
     }
+    
+    // Check for Google Drive root indicator
+    try {
+      const testPath = `${letter}:\\`;
+      if (fs.existsSync(testPath)) {
+        const contents = fs.readdirSync(testPath);
+        if (contents.includes('My Drive') || contents.includes('.shortcut-targets-by-id')) {
+          const myDrivePath = path.join(testPath, 'My Drive');
+          if (fs.existsSync(myDrivePath)) {
+            console.log(`   ✓ Found Google Drive at: ${myDrivePath}`);
+            return myDrivePath;
+          }
+        }
+      }
+    } catch (e) {}
   }
   
-  // Method 2: Check for Google Drive for Desktop (newer naming)
-  // This is the modern Google Drive app's default location
-  const googleDriveDesktopPaths = [
-    path.join(os.homedir(), 'Google Drive'),
-    path.join(os.homedir(), 'GoogleDrive'),
-    path.join(os.homedir(), 'My Drive'),
-  ];
+  // ===== METHOD 2: Windows Registry lookup for Google Drive =====
+  try {
+    const regQuery = execSync(
+      'reg query "HKEY_CURRENT_USER\\Software\\Google\\DriveFS" /v DefaultMountPoint 2>nul',
+      { encoding: 'utf8', stdio: ['pipe', 'pipe', 'pipe'] }
+    );
+    const match = regQuery.match(/DefaultMountPoint\s+REG_SZ\s+(.+)/);
+    if (match && match[1]) {
+      const mountPoint = match[1].trim();
+      const myDrive = path.join(mountPoint, 'My Drive');
+      if (fs.existsSync(myDrive)) {
+        console.log(`   ✓ Found Google Drive via registry: ${myDrive}`);
+        return myDrive;
+      }
+    }
+  } catch (e) {}
   
-  for (const p of googleDriveDesktopPaths) {
-    if (fs.existsSync(p)) return p;
-  }
-  
-  // Method 3: Check AppData for Google Drive Stream root
-  // Google Drive for Desktop stores sync data here
+  // ===== METHOD 3: Check AppData for Google Drive sync info =====
   const driveStreamRoot = path.join(os.homedir(), 'AppData', 'Local', 'Google', 'DriveFS');
   if (fs.existsSync(driveStreamRoot)) {
-    // Find the mounted drive by checking all drives
-    for (const letter of 'GHIJKLMNOPQRSTUVWXYZ'.split('')) {
-      const testPath = `${letter}:\\`;
+    console.log('   Found DriveFS folder, scanning for mount point...');
+    // Check all drives again since we know Google Drive is installed
+    for (const letter of 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')) {
       try {
-        if (fs.existsSync(testPath)) {
-          const contents = fs.readdirSync(testPath);
-          // Google Drive mounts have "My Drive" or ".shortcut-targets-by-id"
-          if (contents.includes('My Drive') || contents.includes('.shortcut-targets-by-id')) {
-            return path.join(testPath, 'My Drive');
-          }
+        const testPath = `${letter}:\\`;
+        if (fs.existsSync(path.join(testPath, 'My Drive'))) {
+          console.log(`   ✓ Found Google Drive mount: ${testPath}My Drive`);
+          return path.join(testPath, 'My Drive');
         }
       } catch (e) {}
     }
   }
   
-  // Method 4: Check Documents folder (common manual setup)
+  // ===== METHOD 4: User home folder locations =====
+  const homePaths = [
+    // Google Drive for Desktop / Backup and Sync
+    path.join(os.homedir(), 'Google Drive'),
+    path.join(os.homedir(), 'GoogleDrive'),
+    path.join(os.homedir(), 'My Drive'),
+    path.join(os.homedir(), 'Google Drive', 'My Drive'),
+    // With CNC subfolders
+    path.join(os.homedir(), 'Google Drive', 'CNC'),
+    path.join(os.homedir(), 'Google Drive', 'CNC Files'),
+    path.join(os.homedir(), 'GoogleDrive', 'CNC'),
+    path.join(os.homedir(), 'GoogleDrive', 'CNC Files'),
+  ];
+  
+  for (const p of homePaths) {
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found Google Drive in home: ${p}`);
+      return p;
+    }
+  }
+  
+  // ===== METHOD 5: Documents folder =====
   const docPaths = [
     path.join(os.homedir(), 'Documents', 'GoogleDrive'),
     path.join(os.homedir(), 'Documents', 'Google Drive'),
     path.join(os.homedir(), 'Documents', 'My Drive'),
+    path.join(os.homedir(), 'Documents', 'CNC'),
+    path.join(os.homedir(), 'Documents', 'CNC Files'),
   ];
   
   for (const p of docPaths) {
-    if (fs.existsSync(p)) return p;
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found cloud/CNC folder in Documents: ${p}`);
+      return p;
+    }
   }
   
-  // Method 5: Check OneDrive (some people use this instead)
+  // ===== METHOD 6: OneDrive =====
+  const oneDriveEnv = process.env.OneDrive || process.env.OneDriveConsumer || process.env.OneDriveCommercial;
+  if (oneDriveEnv && fs.existsSync(oneDriveEnv)) {
+    // Check for CNC folder inside OneDrive
+    const oneDriveCNC = [
+      path.join(oneDriveEnv, 'CNC'),
+      path.join(oneDriveEnv, 'CNC Files'),
+    ];
+    for (const p of oneDriveCNC) {
+      if (fs.existsSync(p)) {
+        console.log(`   ✓ Found OneDrive CNC folder: ${p}`);
+        return p;
+      }
+    }
+    console.log(`   ✓ Found OneDrive: ${oneDriveEnv}`);
+    return oneDriveEnv;
+  }
+  
   const oneDrivePaths = [
+    path.join(os.homedir(), 'OneDrive'),
     path.join(os.homedir(), 'OneDrive', 'CNC'),
     path.join(os.homedir(), 'OneDrive', 'CNC Files'),
-    path.join(os.homedir(), 'OneDrive'),
+    path.join(os.homedir(), 'OneDrive - Personal'),
   ];
   
   for (const p of oneDrivePaths) {
-    if (fs.existsSync(p)) return p;
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found OneDrive: ${p}`);
+      return p;
+    }
   }
   
-  // Method 6: Check Dropbox
+  // ===== METHOD 7: Dropbox =====
+  // Check Dropbox info file for actual location
+  const dropboxInfoPaths = [
+    path.join(os.homedir(), 'AppData', 'Local', 'Dropbox', 'info.json'),
+    path.join(os.homedir(), '.dropbox', 'info.json'),
+  ];
+  
+  for (const infoPath of dropboxInfoPaths) {
+    try {
+      if (fs.existsSync(infoPath)) {
+        const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'));
+        const dropboxPath = info.personal?.path || info.business?.path;
+        if (dropboxPath && fs.existsSync(dropboxPath)) {
+          console.log(`   ✓ Found Dropbox: ${dropboxPath}`);
+          return dropboxPath;
+        }
+      }
+    } catch (e) {}
+  }
+  
   const dropboxPaths = [
+    path.join(os.homedir(), 'Dropbox'),
     path.join(os.homedir(), 'Dropbox', 'CNC'),
     path.join(os.homedir(), 'Dropbox', 'CNC Files'),
-    path.join(os.homedir(), 'Dropbox'),
   ];
   
   for (const p of dropboxPaths) {
-    if (fs.existsSync(p)) return p;
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found Dropbox: ${p}`);
+      return p;
+    }
   }
   
-  // Method 7: Common alternative locations
-  const altPaths = [
-    'C:\\Google Drive',
-    'D:\\Google Drive',
-    'D:\\My Drive',
-    'E:\\Google Drive',
-    'E:\\My Drive',
+  // ===== METHOD 8: iCloud Drive =====
+  const icloudPaths = [
+    path.join(os.homedir(), 'iCloudDrive'),
+    path.join(os.homedir(), 'iCloud Drive'),
+    path.join(os.homedir(), 'AppData', 'Local', 'Apple Inc', 'CloudKit', 'iCloud~com~apple~CloudDocs'),
   ];
   
-  for (const p of altPaths) {
-    if (fs.existsSync(p)) return p;
+  for (const p of icloudPaths) {
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found iCloud: ${p}`);
+      return p;
+    }
   }
   
+  // ===== METHOD 9: Common alternative drive locations =====
+  const altPaths = [];
+  for (const letter of 'CDEFGHIJ'.split('')) {
+    altPaths.push(
+      `${letter}:\\Google Drive`,
+      `${letter}:\\GoogleDrive`,
+      `${letter}:\\My Drive`,
+      `${letter}:\\CNC`,
+      `${letter}:\\CNC Files`
+    );
+  }
+  
+  for (const p of altPaths) {
+    if (fs.existsSync(p)) {
+      console.log(`   ✓ Found folder: ${p}`);
+      return p;
+    }
+  }
+  
+  console.log('   ⚠ No cloud drive found, will use Documents folder');
   return null;
 }
 

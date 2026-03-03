@@ -1,43 +1,47 @@
 # Google Drive Auto-Watch Setup Guide
 
-## 🚀 Quick Start
+## 🚀 Quick Start (ONE CLICK!)
 
-FissionBypass Pro can automatically watch your Google Drive folder and optimize `.nc` files the moment you upload them!
+FissionBypass Pro automatically watches your cloud drive folder and optimizes `.nc` files the moment you upload them!
 
-### Prerequisites
+### ⚡ Installation
 
-1. **Google Drive for Desktop** installed and syncing
-   - Download: https://www.google.com/drive/download/
-   - Your Drive typically syncs to `G:\My Drive\` on Windows
+**Just double-click `INSTALL.bat` - that's it!**
 
-2. **Node.js** installed (v14 or later)
-   - Download: https://nodejs.org/
+The installer will automatically:
+- ✅ Install Node.js (if not installed)
+- ✅ Auto-detect your cloud drive (Google Drive, OneDrive, Dropbox, iCloud)
+- ✅ Create a CNC Files folder if needed
+- ✅ Install auto-startup (runs on Windows boot)
+- ✅ Start watching immediately
+
+**No prerequisites needed!** Everything is installed automatically.
 
 ---
 
-## 📋 Setup Options
+## 📋 Advanced Options (Not Required)
 
-### Option 1: Easy Setup Wizard (Recommended)
+If you're a developer or want manual control:
+
+### Interactive Setup Wizard
 
 ```bash
 npm run setup
 ```
 
-This will:
-- Auto-detect your Google Drive location
-- Let you choose controller and material
+This lets you:
+- Choose a specific folder to watch
+- Select controller and material profiles
 - Create the watch folder
-- Optionally add a desktop shortcut
 
-### Option 2: Manual Configuration
+### Manual Configuration
 
-1. Open `src/drive-watcher.js`
-2. Edit the `CONFIG` section at the top:
+Edit `src/drive-watcher.js` and modify the `CONFIG` section:
 
 ```javascript
 const CONFIG = {
-  // Your Google Drive folder path
-  watchFolder: 'G:\\My Drive\\CNC Files',
+  // Override auto-detection with your folder path
+  watchFolder: 'D:\\MyCustomFolder\\CNC',
   
   // Controller: GRBL, Mach3, Mach4, LinuxCNC, FANUC, HAAS, etc.
   controller: 'GRBL',
@@ -49,7 +53,7 @@ const CONFIG = {
 
 ---
 
-## 🎯 Running the Watcher
+## 🎯 Running the Watcher Manually
 
 ### Method 1: NPM Script
 ```bash

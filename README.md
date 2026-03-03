@@ -201,23 +201,32 @@ All major antivirus vendors with signature-based detection confirm it's clean.
 
 ## 🌐 Google Drive Auto-Watch (NEW!)
 
-**Zero-config! Just double-click INSTALL.bat and you're done!**
+**TRULY zero-config! Just double-click INSTALL.bat - installs EVERYTHING automatically!**
 
-### ⚡ One-Click Setup
+### ⚡ One-Click Setup (No Manual Steps!)
 
 1. **Double-click** `INSTALL.bat`
-2. That's it. Seriously.
+2. **That's literally it.** 
 
-The installer will:
-- ✅ Auto-detect your Google Drive location
-- ✅ Create a `CNC Files` folder if needed
-- ✅ Install auto-startup (runs on Windows boot)
-- ✅ Start watching immediately
+The installer AUTOMATICALLY:
+- ✅ **Installs Node.js** (if not already installed)
+- ✅ **Finds your cloud drive** (Google Drive, OneDrive, Dropbox, iCloud)
+- ✅ **Creates CNC Files folder** if needed
+- ✅ **Adds to Windows startup** (runs on boot, no window!)
+- ✅ **Starts watching immediately**
+
+**Supported Cloud Drives:**
+- Google Drive for Desktop (any drive letter!)
+- OneDrive (Personal & Business)
+- Dropbox
+- iCloud Drive
+- Or any local folder
 
 ### 🧠 Smart Features
 
 **Auto-Detection:**
-- Finds Google Drive automatically (G:\My Drive, etc.)
+- Finds your cloud drive **regardless of location**
+- Checks Windows Registry, environment variables, ALL drive letters
 - Detects material from G-code comments
 - Works out of the box!
 
@@ -248,7 +257,7 @@ Watcher:    Instantly creates _READY.nc with smart name
 CNC PC:     Open optimized file from same Drive folder!
 ```
 
-### 🔧 Commands
+### 🔧 Commands (Optional - for advanced users)
 
 ```bash
 npm run watch              # Start watcher manually
