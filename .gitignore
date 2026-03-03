@@ -1,59 +1,6 @@
-# Byte-compiled / optimized / DLL files
-__pycache__/
-*.py[cod]
-*$py.class
-
 # Node.js
 node_modules/
 package-lock.json
-
-# C extensions
-*.so
-
-# Distribution / packaging
-.Python
-build/
-develop-eggs/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-
-# PyInstaller
-*.manifest
-*.spec
-
-# Installer logs
-pip-log.txt
-pip-delete-this-directory.txt
-
-# Unit test / coverage reports
-htmlcov/
-.tox/
-.nox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
-*.py,cover
-.hypothesis/
-.pytest_cache/
-
-# Virtual environments
-venv/
-ENV/
-env/
-.venv/
 
 # IDE settings
 .idea/
@@ -61,17 +8,9 @@ env/
 *.swp
 *.swo
 *~
-.project
-.pydevproject
-.settings/
 
 # OS generated files
 .DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
 Thumbs.db
 desktop.ini
 
@@ -92,9 +31,10 @@ temp/
 
 # Build outputs (keep dist/ for releases)
 # dist/
-# Local test/dev files (contain hardcoded paths)
-audit.js
-fix-all-files.js
-triple-check.js
-test-*.js
-test-*.nc
+
+# Developer-only files (not for distribution)
+# These are useful for maintainers but not end users
+scripts/generate_assets.js
+scripts/create_release.ps1
+scripts/setup_complete.ps1
+scripts/update_repo_config.ps1
