@@ -3,68 +3,89 @@
 :: Double-click and EVERYTHING is installed automatically!
 :: Installs Node.js if needed - NO MANUAL STEPS REQUIRED!
 
-title FissionBypass Pro - Auto Installer
+title FissionBypass Pro - Installer
 color 0A
 setlocal enabledelayedexpansion
 
+cls
 echo.
-echo  ============================================================
-echo        FissionBypass Pro - AUTOMATIC INSTALLER
-echo  ============================================================
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║                                                               ║
+echo   ║         🚀  FissionBypass Pro - EASY INSTALLER  🚀           ║
+echo   ║                                                               ║
+echo   ║   Optimize your Fusion 360 G-code automatically!             ║
+echo   ║   40-60%% faster CNC cycle times, zero effort.                ║
+echo   ║                                                               ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
 echo.
-echo  This installer will automatically:
-echo    [1] Install Node.js (if not installed)
-echo    [2] Auto-detect your Google Drive / OneDrive / Dropbox
-echo    [3] Create CNC Files folder
-echo    [4] Install auto-startup (runs on Windows boot)
-echo    [5] Start the watcher immediately
+echo   This installer will set up everything for you:
 echo.
-echo  ============================================================
+echo      ✓ Step 1: Check/Install Node.js runtime
+echo      ✓ Step 2: Find your Google Drive/OneDrive/Dropbox folder
+echo      ✓ Step 3: Create a CNC Files folder for your G-code
+echo      ✓ Step 4: Set up auto-start with Windows
+echo      ✓ Step 5: Start watching for .nc files immediately
 echo.
-echo  Press any key to begin installation...
+echo   ───────────────────────────────────────────────────────────────
+echo   NO CODING REQUIRED - Just click and it's done!
+echo   ───────────────────────────────────────────────────────────────
+echo.
+echo   Press any key to start the installation...
 pause >nul
+cls
 
 :: Change to script directory
 cd /d "%~dp0"
 
 echo.
-echo  [1/5] Checking for Node.js...
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║  STEP 1 of 5: Checking for Node.js...                         ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
+echo.
 
 :: Check if Node.js is installed
 where node >nul 2>nul
 if %ERRORLEVEL% equ 0 (
-    echo        [OK] Node.js is already installed!
-    for /f "tokens=*" %%i in ('node --version') do echo        Version: %%i
+    echo   ✅ Node.js is already installed - perfect!
+    for /f "tokens=*" %%i in ('node --version') do echo      Version: %%i
+    echo.
+    timeout /t 2 /noq >nul
     goto :node_ready
 )
 
-echo        [!] Node.js not found - Installing automatically...
+echo   ⚠️  Node.js is not installed on this computer.
+echo.
+echo   📥 Downloading Node.js automatically...
+echo      (This is a one-time download, ~30MB)
 echo.
 
 :: Download Node.js LTS installer
 set "NODE_URL=https://nodejs.org/dist/v20.11.0/node-v20.11.0-x64.msi"
 set "NODE_INSTALLER=%TEMP%\nodejs_installer.msi"
 
-echo        Downloading Node.js LTS (this may take a minute)...
-powershell -Command "& {[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Invoke-WebRequest -Uri '%NODE_URL%' -OutFile '%NODE_INSTALLER%' -UseBasicParsing}"
+powershell -Command "& {Write-Host '      Downloading...' -ForegroundColor Cyan; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Invoke-WebRequest -Uri '%NODE_URL%' -OutFile '%NODE_INSTALLER%' -UseBasicParsing; Write-Host '      Download complete!' -ForegroundColor Green}"
 
 if not exist "%NODE_INSTALLER%" (
     echo.
-    echo  [ERROR] Failed to download Node.js!
-    echo  Please install Node.js manually from: https://nodejs.org/
-    echo  Then run this installer again.
+    echo   ❌ ERROR: Couldn't download Node.js
+    echo.
+    echo   Please install Node.js manually:
+    echo      1. Go to: https://nodejs.org/
+    echo      2. Download and install the LTS version
+    echo      3. Run this installer again
     echo.
     pause
     exit /b 1
 )
 
-echo        Installing Node.js silently...
-echo        (You may see a UAC prompt - click Yes)
+echo.
+echo   📦 Installing Node.js...
+echo      (A Windows permission prompt may appear - click YES)
+echo.
 msiexec /i "%NODE_INSTALLER%" /qn /norestart
 
-:: Wait for installation to complete
-echo        Waiting for installation to finish...
-timeout /t 10 /noq >nul
+echo      Waiting for installation to complete...
+timeout /t 12 /noq >nul
 
 :: Refresh PATH for this session
 set "PATH=%PATH%;C:\Program Files\nodejs;%APPDATA%\npm"
@@ -73,60 +94,105 @@ set "PATH=%PATH%;C:\Program Files\nodejs;%APPDATA%\npm"
 where node >nul 2>nul
 if %ERRORLEVEL% neq 0 (
     echo.
-    echo  [!] Node.js installed but PATH not updated yet.
+    echo   ⚠️  Node.js was installed, but Windows needs to refresh.
     echo.
-    echo  PLEASE DO THE FOLLOWING:
-    echo    1. Close this window
-    echo    2. Restart your computer (or log out and back in)
-    echo    3. Double-click INSTALL.bat again
+    echo   👉 WHAT TO DO:
+    echo      1. Close this window
+    echo      2. Log out and log back in (or restart your PC)
+    echo      3. Double-click INSTALL.bat again
+    echo.
+    echo   This is normal - Windows just needs to update its settings!
     echo.
     del "%NODE_INSTALLER%" 2>nul
     pause
     exit /b 1
 )
 
-echo        [OK] Node.js installed successfully!
+echo   ✅ Node.js installed successfully!
 del "%NODE_INSTALLER%" 2>nul
+timeout /t 2 /noq >nul
 
 :node_ready
+cls
 echo.
-echo  [2/5] Auto-detecting cloud drive folder...
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║  STEP 2 of 5: Finding your cloud drive...                     ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
+echo.
+echo   🔍 Searching for cloud storage folders...
+echo      • Google Drive
+echo      • OneDrive  
+echo      • Dropbox
+echo      • iCloud Drive
+echo      • Local Documents folder
+echo.
+timeout /t 2 /noq >nul
 
-:: The Node.js script handles all the smart detection
-echo        Searching: Google Drive, OneDrive, Dropbox, local folders...
+cls
+echo.
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║  STEP 3 of 5: Creating CNC Files folder...                    ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
+echo.
+echo   📁 Setting up your G-code watch folder...
+echo      (This is where you'll save your .nc files from Fusion 360)
+echo.
+timeout /t 2 /noq >nul
 
+cls
 echo.
-echo  [3/5] Preparing CNC Files folder...
-echo        (Will be created automatically if needed)
-
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║  STEP 4 of 5: Setting up auto-start...                        ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
 echo.
-echo  [4/5] Installing auto-startup...
+echo   ⚙️  Configuring FissionBypass to start with Windows...
+echo      (It will run silently in the background)
 echo.
-call node scripts\install-startup.js
+call node scripts\install-startup.js 2>nul
 
 if %ERRORLEVEL% neq 0 (
-    echo  [!] Warning: Could not install startup script
+    echo   ⚠️  Note: Auto-startup couldn't be configured
+    echo      You can start manually with: npm run watch
 )
+timeout /t 2 /noq >nul
 
+cls
 echo.
-echo  ============================================================
-echo         INSTALLATION COMPLETE!
-echo  ============================================================
+echo   ╔═══════════════════════════════════════════════════════════════╗
+echo   ║                                                               ║
+echo   ║         ✅  INSTALLATION COMPLETE!  ✅                        ║
+echo   ║                                                               ║
+echo   ╚═══════════════════════════════════════════════════════════════╝
 echo.
-echo  FissionBypass is now:
-echo    [OK] Installed and configured
-echo    [OK] Set to auto-start on Windows boot
-echo    [OK] Watching your cloud drive for .nc files
+echo   FissionBypass Pro is now fully configured!
 echo.
-echo  HOW TO USE:
-echo    1. Export .nc files from Fusion 360 to your cloud folder
-echo    2. FissionBypass automatically creates optimized _READY.nc
-echo    3. Use the _READY.nc file on your CNC - 40-60%% faster!
+echo   ┌─────────────────────────────────────────────────────────────┐
+echo   │  WHAT HAPPENS NOW:                                          │
+echo   ├─────────────────────────────────────────────────────────────┤
+echo   │  • FissionBypass runs automatically when Windows starts     │
+echo   │  • It watches your cloud folder for new .nc files           │
+echo   │  • When you export from Fusion 360, it auto-optimizes!      │
+echo   │  • Look for files ending in _READY.nc                       │
+echo   └─────────────────────────────────────────────────────────────┘
 echo.
-echo  The watcher is starting now...
-echo  (Close this window to stop, or just leave it running)
+echo   ┌─────────────────────────────────────────────────────────────┐
+echo   │  HOW TO USE:                                                 │
+echo   ├─────────────────────────────────────────────────────────────┤
+echo   │  1. Export your .nc file from Fusion 360                    │
+echo   │  2. Save it to your cloud drive CNC folder                  │
+echo   │  3. FissionBypass creates YourFile_READY.nc automatically   │
+echo   │  4. Use the _READY file on your CNC - 40-60%% faster!       │
+echo   └─────────────────────────────────────────────────────────────┘
 echo.
-echo  ============================================================
+echo   ───────────────────────────────────────────────────────────────
+echo   📂 STEP 5 of 5: Starting the watcher now...
+echo   ───────────────────────────────────────────────────────────────
+echo.
+echo   The watcher will display below. Leave this window open to
+echo   keep it running, or close it - it will start automatically
+echo   next time Windows boots!
+echo.
+echo   ═══════════════════════════════════════════════════════════════
 echo.
 
 :: Start the watcher

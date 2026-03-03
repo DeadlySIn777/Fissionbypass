@@ -501,16 +501,18 @@ class DriveWatcher {
   log(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
     const icons = {
-      info: '📁',
-      success: '✅',
-      error: '❌',
-      watch: '👁️',
-      process: '⚙️',
-      skip: '⏭️',
-      rename: '✏️',
-      rpm: '🔄',
+      info: '📁  ',
+      success: '✅  ',
+      error: '❌  ',
+      watch: '👁️   ',
+      process: '⚙️   ',
+      skip: '⏭️   ',
+      rename: '✏️   ',
+      rpm: '🔄  ',
+      delete: '🗑️   ',
+      new: '🆕  ',
     };
-    console.log(`[${timestamp}] ${icons[type] || '•'} ${message}`);
+    console.log(`   ${icons[type] || '•  '}[${timestamp}] ${message}`);
   }
 
   getOutputPath(inputPath, content) {
@@ -814,13 +816,13 @@ class DriveWatcher {
   start() {
     // Check if folder exists
     if (!fs.existsSync(this.config.watchFolder)) {
-      this.log(`Watch folder doesn't exist: ${this.config.watchFolder}`, 'error');
-      this.log(`Creating folder...`, 'info');
+      console.log(`\n   📁 Watch folder doesn't exist: ${this.config.watchFolder}`);
+      console.log(`   📁 Creating folder...`);
       try {
         fs.mkdirSync(this.config.watchFolder, { recursive: true });
-        this.log(`Created: ${this.config.watchFolder}`, 'success');
+        console.log(`   ✅ Created: ${this.config.watchFolder}\n`);
       } catch (error) {
-        this.log(`Failed to create folder: ${error.message}`, 'error');
+        console.log(`   ❌ Failed to create folder: ${error.message}`);
         process.exit(1);
       }
     }
@@ -830,17 +832,37 @@ class DriveWatcher {
       fs.mkdirSync(this.config.outputFolder, { recursive: true });
     }
 
-    console.log('\n' + '='.repeat(60));
-    console.log('🚀 FissionBypass Pro - Google Drive Auto Watcher');
-    console.log('='.repeat(60));
-    console.log(`📂 Watching: ${this.config.watchFolder}`);
-    console.log(`🎯 Controller: ${this.config.controller}`);
-    console.log(`🪵 Material: ${this.config.material}`);
-    console.log(`� Max RPM: ${this.config.maxRPM || 8000}`);
-    console.log(`�📄 Extensions: ${this.config.extensions.join(', ')}`);
-    console.log('='.repeat(60));
-    console.log('Drop .nc files into the folder and they will be auto-optimized!');
-    console.log('Press Ctrl+C to stop.\n');
+    console.log('');
+    console.log('   ╔═══════════════════════════════════════════════════════════╗');
+    console.log('   ║                                                           ║');
+    console.log('   ║     🚀  FissionBypass Pro - ACTIVE & WATCHING  🚀        ║');
+    console.log('   ║                                                           ║');
+    console.log('   ╚═══════════════════════════════════════════════════════════╝');
+    console.log('');
+    console.log('   ┌─────────────────────────────────────────────────────────┐');
+    console.log('   │  CONFIGURATION:                                         │');
+    console.log('   ├─────────────────────────────────────────────────────────┤');
+    console.log(`   │  📂 Watch Folder: ${this.config.watchFolder.substring(0, 40).padEnd(40)}│`);
+    console.log(`   │  🎯 Controller:   ${this.config.controller.padEnd(40)}│`);
+    console.log(`   │  🔧 Material:     ${this.config.material.padEnd(40)}│`);
+    console.log(`   │  ⚡ Max RPM:      ${String(this.config.maxRPM || 8000).padEnd(40)}│`);
+    console.log('   └─────────────────────────────────────────────────────────┘');
+    console.log('');
+    console.log('   ┌─────────────────────────────────────────────────────────┐');
+    console.log('   │  HOW IT WORKS:                                          │');
+    console.log('   ├─────────────────────────────────────────────────────────┤');
+    console.log('   │  1. Save your .nc file from Fusion 360 to the folder   │');
+    console.log('   │  2. FissionBypass detects it instantly                 │');
+    console.log('   │  3. Creates YourFile_READY.nc (optimized!)             │');
+    console.log('   │  4. Use the _READY file on your CNC                    │');
+    console.log('   └─────────────────────────────────────────────────────────┘');
+    console.log('');
+    console.log('   Status: ✅ WATCHING for new files...');
+    console.log('   (Press Ctrl+C to stop)');
+    console.log('');
+    console.log('   ═══════════════════════════════════════════════════════════');
+    console.log('   FILE ACTIVITY:');
+    console.log('   ───────────────────────────────────────────────────────────');
 
     if (this.config.usePolling) {
       this.startPolling();
